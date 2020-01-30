@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScappleDocument Version="1.1" ID="61BEEC87-D976-46ED-A657-DCE25E695E9C">
+    <Notes>
+        <Note ID="5" FontSize="12.0" Position="282.917969,101.65625" Width="94.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>FIX INTERCOM</String>
+        </Note>
+        <Note ID="6" FontSize="12.0" Position="395.292969,101.148438" Width="118.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>FIX SMOKE ALARM</String>
+        </Note>
+        <Note ID="7" FontSize="12.0" Position="189.933594,101.757812" Width="59.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>ROUTER</String>
+        </Note>
+        <Note ID="8" FontSize="12.0" Position="88.480469,211.378906" Width="63.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>SHELVES</String>
+        </Note>
+        <Note ID="9" FontSize="12.0" Position="67.277344,386.492188" Width="69.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>CURTAINS</String>
+        </Note>
+        <Note ID="10" FontSize="12.0" Position="118.171875,102.359375" Width="41.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>SOFA</String>
+        </Note>
+        <Note ID="11" FontSize="12.0" Position="311.992188,332.15625" Width="94.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>COFFEETABLE</String>
+        </Note>
+        <Note ID="12" FontSize="12.0" Position="180.0,161.691406" Width="67.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>TV STAND</String>
+        </Note>
+        <Note ID="13" FontSize="12.0" Position="265.285156,250.984375" Width="24.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>TV</String>
+        </Note>
+        <Note ID="14" FontSize="12.0" Position="126.9375,48.519531" Width="33.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>BED</String>
+        </Note>
+        <Note ID="15" FontSize="12.0" Position="325.160156,258.578125" Width="56.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>SWITCH</String>
+        </Note>
+        <Note ID="16" FontSize="12.0" Position="265.0,486.0" Width="32.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>3DS</String>
+        </Note>
+        <Note ID="17" FontSize="12.0" Position="379.0,395.0" Width="50.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>RASER</String>
+        </Note>
+        <Note ID="18" FontSize="12.0" Position="202.0,449.0" Width="52.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>KINDLE</String>
+        </Note>
+        <Note ID="19" FontSize="12.0" Position="184.988281,395.421875" Width="51.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>PHONE</String>
+        </Note>
+        <Note ID="20" FontSize="12.0" Position="501.949219,262.066406" Width="89.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>POWERSTRIP</String>
+        </Note>
+        <Note ID="21" FontSize="12.0" Position="138.207031,507.890625" Width="62.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>ROOMBA</String>
+        </Note>
+        <Note ID="22" FontSize="12.0" Position="402.0,518.0" Width="50.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>CLOCK</String>
+        </Note>
+        <Note ID="23" FontSize="12.0" Position="363.0,481.0" Width="29.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>RPI</String>
+        </Note>
+        <Note ID="24" FontSize="12.0" Position="343.0,428.0" Width="48.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>STARS</String>
+        </Note>
+        <Note ID="25" FontSize="12.0" Position="413.0,283.0" Width="38.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>ECIG</String>
+        </Note>
+        <Note ID="26" FontSize="12.0" Position="440.0,354.0" Width="59.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <String>ROUTER</String>
+        </Note>
+    </Notes>
+    <BackgroundShapes></BackgroundShapes>
+    <AutoFit>5-26</AutoFit>
+    <NoteStyles>
+        <Style Name="Bubble (Blue)" ID="5FCFADE2-6498-4C66-AD76-D6395D87155C" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.561855 0.71062 0.779401</BorderColor>
+            <FillColor>0.702319 0.888276 0.974252</FillColor>
+        </Style>
+        <Style Name="Bubble (Green)" ID="DC0758A4-ED78-47DC-8449-5C1FABCA3AFF" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.572684 0.758969 0.558154</BorderColor>
+            <FillColor>0.715855 0.948712 0.697692</FillColor>
+        </Style>
+        <Style Name="Bubble (Pink)" ID="77EEA971-8351-4A5C-A31B-A1B22F940CE9" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.794796 0.560965 0.58607</BorderColor>
+            <FillColor>0.957566 0.766747 0.999616</FillColor>
+        </Style>
+        <Style Name="Bubble (Red)" ID="6CD806B2-C0D8-4588-A3C3-116A12B641A9" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.794796 0.560965 0.58607</BorderColor>
+            <FillColor>0.993495 0.701207 0.732587</FillColor>
+        </Style>
+        <Style Name="Bubble (Yellow)" ID="F5EDA9C2-B01D-41A2-B7BF-FFCA65687201" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.798177 0.714184 0.522055</BorderColor>
+            <FillColor>0.997722 0.89273 0.652569</FillColor>
+        </Style>
+        <Style Name="Red Text" ID="B4A50F95-ABE3-40E1-A147-37D6367DE601" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="Yes" AffectNoteBody="No" AffectFade="No">
+            <TextColor>0.985948 0.0 0.026951</TextColor>
+        </Style>
+        <Style Name="Title Text" ID="69A73DAD-4CA7-47C4-BC6E-327E1A1CC8FA" AffectFontStyle="Yes" AffectAlignment="Yes" AffectTextColor="No" AffectNoteBody="No" AffectFade="No">
+            <FontSize>28.0</FontSize>
+            <IsBold>Yes</IsBold>
+        </Style>
+    </NoteStyles>
+    <UISettings>
+        <BackgroundColor>0.999767 0.98837 0.949907</BackgroundColor>
+        <DefaultFont>Helvetica</DefaultFont>
+    </UISettings>
+    <PrintSettings PaperSize="595.0,842.0" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
+</ScappleDocument>
