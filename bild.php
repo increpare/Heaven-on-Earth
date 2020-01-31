@@ -5,8 +5,10 @@ $lookup=array("ignore", "hintergrund", "anlage", "sterne", "sofa", "couchtisch",
 
 $idxs_str = $_GET["idxs"];
 
+$tagsueber = intval($_GET["tagsueber"])==1;
+
 $praefix="./ebenen/";
-if (intval($_GET["tagsueber"])==1){
+if ($tagsueber){
 	$praefix="./output/invertiert_";
 } else if (intval($_GET["led"])==1){
 	$praefix="./output/beleuchtung_";
@@ -31,6 +33,9 @@ if (empty($idxs) || count($idxs)==0){
 $fn1="1";//array_shift($idxs);//$idxs[0] + removes it
 $image_1 = imagecreatefrompng($praefix . (intval($fn1)+1) . '-' . $lookup[$fn1] . '.png');
 
+if ($tagsueber==false){
+	array_unshift($idxs,0);
+}
 
 foreach ($idxs as $fn2) {
 

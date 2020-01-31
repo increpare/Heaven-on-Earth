@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Heaven on Earth</title>
 
 <style>
 	body{
@@ -13,19 +13,39 @@
 	    image-rendering: -webkit-crisp-edges;
 	    image-rendering: pixelated;
 	    image-rendering: crisp-edges;
+	    width:100%;
+	    height:100%;
+	}
+	html, body{
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+}
+
+	div{height:100%;}
+	tbody{height:100%;width:100%;}
+	table{
+		width:100%;
+		height:100%;
+    padding:0;
+    margin:0;
 	}
 	ul{
 		/*list-style-type: none;*/
 	}
 	img{
-		width:256px;
-		height:488px;
+		object-fit: contain;
+		object-position: 0 0.5;
 	}
 	tr{
+		height:100%;
+		width:100%;
 	}
 	td{
-		width:256px;
+		width:50%;
 		vertical-align:bottom;
+		height:100%;
 	}
 	a{
 		color:yellow;
@@ -94,6 +114,9 @@ var ebene_folge = [
 "fenster_vorhaenge_zu",
 "fenster_vorhaenge_zu_alexa",
 ]
+
+var tagsüber=true;
+var silhouette=false;
 
 var gegenstände = [
 
@@ -294,7 +317,7 @@ var gegenstände = [
 		kauftext_en:"I tire of the outside world intruding on my dreams.",
 		kauftext_de:"Ich bin der Außenwelt müd. Ich will nur in der Dunkelheit schlafen.",
 		img:function(zustand){ 
-			if (zustand.includes("tagsüber")) {
+			if (tagsüber) {
 				return "vorhaenge";
 			} else { 
 				if (zustand.includes("alexa") ) 
@@ -382,6 +405,16 @@ var gegenstände = [
 
 var tagliste=[]
 
+//zustand:
+//morgen  KAUF
+//morgen GO TO WORK
+//at work COME HOME
+//abend if curtins, close curtains
+//abend2 (optional) go to bed
+//schalfen lights out
+//lightsout sleep
+//if game over, final message?  no.  alles möglichst einfach.
+
 for (let i=0;i<gegenstände.length;i++){
 	let gs=gegenstände[i];
 	tagliste.push(gs.name)
@@ -461,17 +494,22 @@ function offentlicherName(tag){
 	return ggs.vollname_en;
 }
 
-bodytxt="<div class='Aligner'><table class='Aligner-item'><tr><td>";
-// bodytxt+=`${machSeiteName(zustand)}<br><br>`
-bodytxt+=`<img src="bild.php?idxs=${machBildName(zustand)}&tagsueber=0&led=0">`
-bodytxt+="</td><td>"
-bodytxt+="<ul>";
+bodytxt=`
+	<div class='Aligner'><table class='Aligner-item'><tr><td rowspan=2>
+	<img src="bild.php?idxs=${machBildName(zustand)}&tagsueber=${tagsüber?1:0}&led=0">
+	</td><td></td></tr><td>
+	<ul>
+`
 for (var i=0;i<zubesuchen.length;i++){
 	var name = offentlicherName(zubesuchen_tags[i]);
-	bodytxt+=`<li><a href="index.html?zustand=${machSeiteName(zubesuchen[i])}">${name}</a>\n`;
+	bodytxt+=`
+	<li><a href="index.html?zustand=${machSeiteName(zubesuchen[i])}">${name}</a>
+	`;
 }
-bodytxt+="</ul>"
-bodytxt+="</td></table></div>"
+bodytxt+=`
+	</ul>
+	</td></tr></table></div>
+`
 
 
 window.onload=function(){
