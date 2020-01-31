@@ -16,7 +16,7 @@
 	    width:100%;
 	    height:100%;
 	}
-	html, body{
+	html, body, div{
     height:100%;
     width:100%;
     padding:0;
@@ -24,19 +24,13 @@
 }
 
 	div{height:100%;}
-	tbody{height:100%;width:100%;}
-	table{
-		width:100%;
-		height:100%;
-    padding:0;
-    margin:0;
-	}
+
 	ul{
 		/*list-style-type: none;*/
 	}
 	img{
 		object-fit: contain;
-		object-position: 0 0.5;
+		object-position: top right;
 	}
 	tr{
 		height:100%;
@@ -49,24 +43,45 @@
 	}
 	a{
 		color:yellow;
-	}
-	.Aligner {
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
+		font-size: 2em;
 	}
 
-	.Aligner-item {
-	  max-width: 50%;
-	}
+.wrapper{
+  background-color: black;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
-	.Aligner-item--top {
-	  align-self: flex-start;
-	}
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
 
-	.Aligner-item--bottom {
-	  align-self: flex-end;
-	}
+.rpad{
+	padding-right:4em;
+}
+
+.tblpad{
+	padding-top:1em;
+	padding-bottom:1em;
+	padding-left:1em;
+}
+
+li {
+  /*display: flex;*/
+  justify-content: center;
+  /* align-self: center;    <---- REMOVE */
+  /*align-items: center;   /* <---- NEW    */*/
+  /*background: silver;*/
+  width: 100%;
+  padding-bottom:1em;
+}
 
 </style>
 <script>
@@ -464,53 +479,63 @@ if (zustand_params==="index"||zustand_params==null||zustand_params===""){
 		}
 	}
 }
-console.log(zustand)
 
-//generiere abgehende Linken
-var zubesuchen=[]
-var zubesuchen_tags=[]
 
-var source_key=machSeiteName(zustand)
+function darstelleZustand(zustand){
+	//generiere abgehende Linken
+	var zubesuchen=[]
+	var zubesuchen_tags=[]
 
-for (var i=0;i<gegenstände.length;i++){
-	var gegenstand=gegenstände[i];
-	if (zustand.includes(gegenstand.name)){
-		continue;
+	var source_key=machSeiteName(zustand)
+
+	for (var i=0;i<gegenstände.length;i++){
+		var gegenstand=gegenstände[i];
+		if (zustand.includes(gegenstand.name)){
+			continue;
+		}
+		if (gegenstand.erfordernis(zustand)){
+			var neuerZustand = [gegenstand.name].concat(zustand);
+			neuerZustand.sort()
+
+			var key = machSeiteName(neuerZustand)
+
+			zubesuchen.push(neuerZustand);
+			zubesuchen_tags.push(gegenstand.name)
+		}
 	}
-	if (gegenstand.erfordernis(zustand)){
-		var neuerZustand = [gegenstand.name].concat(zustand);
-		neuerZustand.sort()
 
-		var key = machSeiteName(neuerZustand)
-
-		zubesuchen.push(neuerZustand);
-		zubesuchen_tags.push(gegenstand.name)
+	function offentlicherName(tag){
+		var idx = tagliste.indexOf(tag);
+		var ggs = gegenstände[idx];
+		return ggs.vollname_en;
 	}
-}
 
-function offentlicherName(tag){
-	var idx = tagliste.indexOf(tag);
-	var ggs = gegenstände[idx];
-	return ggs.vollname_en;
-}
-
-bodytxt=`
-	<div class='Aligner'><table class='Aligner-item'><tr><td rowspan=2>
-	<img src="bild.php?idxs=${machBildName(zustand)}&tagsueber=${tagsüber?1:0}&led=0">
-	</td><td></td></tr><td>
+	bodytxt=`
+	<div class="wrapper">
+	<div class='row'>
+		<img class='column tblpad' src="bild.php?idxs=${machBildName(zustand)}&tagsueber=${tagsüber?1:0}&led=0">
+	    <div class='column rpad'>
 	<ul>
-`
-for (var i=0;i<zubesuchen.length;i++){
-	var name = offentlicherName(zubesuchen_tags[i]);
-	bodytxt+=`
-	<li><a href="index.html?zustand=${machSeiteName(zubesuchen[i])}">${name}</a>
-	`;
-}
-bodytxt+=`
-	</ul>
-	</td></tr></table></div>
-`
 
+
+	`
+	for (var i=0;i<zubesuchen.length;i++){
+		var name = offentlicherName(zubesuchen_tags[i]);
+		bodytxt+=`
+		<li><a href="index.html?zustand=${machSeiteName(zubesuchen[i])}">${name}</a>
+		`;
+	}
+	bodytxt+=`
+	</ul>
+	      </div>
+	    </div>
+	`
+	if (document.body!=null){
+		document.body.innerHTML=bodytxt;		
+	}
+}
+
+darstelleZustand(zustand)
 
 window.onload=function(){
 	document.body.innerHTML=bodytxt;
