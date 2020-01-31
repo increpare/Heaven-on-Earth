@@ -7,27 +7,93 @@
 	body{
 		background-color: black;
 		color: white;
-		text-align: center;
+		/*text-align: center;*/
+
+	    image-rendering: -moz-crisp-edges;
+	    image-rendering: -webkit-crisp-edges;
+	    image-rendering: pixelated;
+	    image-rendering: crisp-edges;
 	}
+	ul{
+		/*list-style-type: none;*/
+	}
+	img{
+		width:256px;
+		height:488px;
+	}
+	tr{
+	}
+	td{
+		width:256px;
+		vertical-align:bottom;
+	}
+	a{
+		color:yellow;
+	}
+	.Aligner {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+
+	.Aligner-item {
+	  max-width: 50%;
+	}
+
+	.Aligner-item--top {
+	  align-self: flex-start;
+	}
+
+	.Aligner-item--bottom {
+	  align-self: flex-end;
+	}
+
 </style>
 <script>
 
-var datein = fs.readdirSync("ebenen/");
 
-var bilder=[]
-var ebenen=[]
-for (let i=0;i<datein.length;i++){
-	var d= datein[i];
-	if (d[0]==="."){
-		continue;
-	}
-	var myimage = new PNG.load("ebenen/"+d);
-	var name = (d.split("-")[1]).split(".")[0];
-	var layer = d.split("-")[0];
-	bilder[name]=myimage;
-	ebenen[name]=parseInt(layer);
-}
-
+var ebene_folge = [
+"ignore",
+"hintergrund",
+"anlage",
+"sterne",
+"sofa",
+"couchtisch",
+"fernsehertisch",
+"alexa",
+"vorhaenge",
+"vorhaenge_zu",
+"vorhaenge_zu_alexa",
+"rauchmelder",
+"schrank",
+"bett",
+"router",
+"rpi_s2",
+"rpi_s0",
+"strip1",
+"strip2",
+"strip3",
+"roomba_s2",
+"roomba_s0",
+"eckig",
+"handy_s1",
+"handy_s0",
+"fernseher",
+"switch",
+"procontroller1",
+"procontroller2",
+"ds",
+"ebook",
+"razer",
+"kopfhoerer",
+"uhr",
+"fenster",
+"fenster_alexa",
+"fenster_schrank",
+"fenster_vorhaenge",
+"fenster_vorhaenge_zu",
+"fenster_vorhaenge_zu_alexa",
+]
 
 var gegenstände = [
 
@@ -78,7 +144,7 @@ var gegenstände = [
 		kauftext_en:"Clash of Heroes is such an amazing game!",
 		kauftext_de:"Clash of Heroes ist ein so echt geiles Spiel!",
 		img:function(zustand){ return "ds" },
-		erfordernis:function(zustand){ return zustand.includes("strip3")}
+		erfordernis:function(zustand){ return zustand.includes("strip3")&&zustand.includes("couchtisch")}
 	},
 
 	{
@@ -88,17 +154,17 @@ var gegenstände = [
 		kauftext_en:"I figure if I'm going to get into console gaming, why not go all out right?",
 		kauftext_de:"Wenn ich 'n richtiger Konsolegamer sein will, sollte ich das richtiges Zubehör kaufen.  Und viele Energiegetränke.",
 		img:function(zustand){ return "procontroller1" },
-		erfordernis:function(zustand){ return zustand.includes("switch")}
+		erfordernis:function(zustand){ return zustand.includes("switch")&&zustand.includes("couchtisch")}
 	},
 
 	{
 		name:"procontroller2",
-		vollname_en:"Nintendo Switch Pro Controller",
-		vollname_de:"Nintendo Switch Pro Controller",
+		vollname_en:"Another Nintendo Switch Pro Controller",
+		vollname_de:"Another Nintendo Switch Pro Controller",
 		kauftext_en:"It was too annoying deciding who should get the good controller.  Thankfully this is a solvable problem.",
 		kauftext_de:"Es hat uns beide generft, der einzige gute Controller teilen zu müssen.  Zum Glück hat dieses Problem eine Lösung!",
 		img:function(zustand){ return "procontroller2" },
-		erfordernis:function(zustand){ return zustand.includes("procontroller1")}
+		erfordernis:function(zustand){ return zustand.includes("procontroller1")&&zustand.includes("couchtisch")}
 	},
 
 	{
@@ -138,7 +204,7 @@ var gegenstände = [
 		kauftext_en:"When I relapse, I still find myslf before I go to bed placing the cigarette packet vertically at the corner of the table.",
 		kauftext_de:"Wenn ich einen Rückfall bekommen, lege ich mich immer noch Abends die Zigarettenpackung vertikal auf'm Tisch.",
 		img:function(zustand){ return "eckig" },
-		erfordernis:function(zustand){ return zustand.includes("strip3")}
+		erfordernis:function(zustand){ return zustand.includes("strip3")&&zustand.includes("couchtisch")}
 	},
 
 	{
@@ -158,7 +224,7 @@ var gegenstände = [
 		kauftext_en:"I haven't seen a garland in years, but here's a beautiful daisy chain.",
 		kauftext_de:"Man kann fürwahr nie genug Steckdosenleisten haben!",
 		img:function(zustand){ return "strip3" },
-		erfordernis:function(zustand){ return zustand.includes("alexa")&&zustand.includes("roomba")&&zustand.includes("rpi")}
+		erfordernis:function(zustand){ return zustand.includes("alexa")&&zustand.includes("roomba")&&zustand.includes("rpi") && zustand.includes("strip2")&& zustand.includes("strip1")}
 	},
 
 	{
@@ -168,7 +234,7 @@ var gegenstände = [
 		kauftext_en:"There's something so natural about having a power strip nestled snugly up along the side of a couch, don't you think?",
 		kauftext_de:"Es scheint meinen Augen so kompositionmäßig korrekt eine Steckdosenleiste knapp am Rüsche eines Sofas zu sehen.",
 		img:function(zustand){ return "strip2" },
-		erfordernis:function(zustand){ return zustand.includes("router") && zustand.includes("sofa")}
+		erfordernis:function(zustand){ return zustand.includes("router") && zustand.includes("sofa") && zustand.includes("strip1")}
 	},
 
 	{
@@ -255,8 +321,8 @@ var gegenstände = [
 
 	{
 		name:"fernsehertisch",
-		vollname_en:"",
-		vollname_de:"",
+		vollname_en:"TV Table",
+		vollname_de:"TV-Schränk",
 		kauftext_en:"A table, but also a promise and pact to myself.",
 		kauftext_de:"Ein Tisch.  Aber nicht nur ein Tisch.  Auch ist es mir ein Versprechen, ein Pakt.",
 		img:function(zustand){ return "fernsehertisch" },
@@ -295,8 +361,8 @@ var gegenstände = [
 
 	{
 		name:"rauchmelder",
-		vollname_en:"Smoke alarm",
-		vollname_de:"Rauchmelder",
+		vollname_en:"Fix Smoke alarm",
+		vollname_de:"Rauchmelder reparieren",
 		kauftext_en:"I don't want to die in the smoke.  Let me know if there's smoke so I don't die, ok?",
 		kauftext_de:"Sag mir Bescheid, wenn es Rauch gibt, ja?  Ich will nicht inmitten des Rauchs sterben.",
 		img:function(zustand){ return "rauchmelder" },
@@ -308,9 +374,9 @@ var gegenstände = [
 		vollname_en:"Glow in The Dark Stars and Moon",
 		vollname_de:"Leuchtende Sterne Set",
 		kauftext_en:`The packing says "Realistic No Dots No Squares Set".  I guess a lot of people have been burned by low-quality glow in the dark stars.  It's nice to see that the producer seems proud of the quality of their glow-in-the-dark stars.`,
-		kauftext_de:`Die Packung sagt: "Realistisch.  Keine Punkte oder Quadrate".  Irgendwie ein gutes Verkaufsargument.  Ich bin jedenfalls überzeugt, dass der Producer stolz auf seine Waren ist!`,
+		kauftext_de:`Die Packung sagt: "Realistisch.  Keine Punkte oder Quadrate".  Irgendwie ein gutes Verkaufs	.  Ich bin jedenfalls überzeugt, dass der Producer stolz auf seine Waren ist!`,
 		img:function(zustand){ return "sterne" },
-		erfordernis:function(zustand){ return zustand.includes("strip3")&&zustand.includes("vorhaenge")}
+		erfordernis:function(zustand){ return zustand.length===26}
 	},
 ]
 
@@ -321,79 +387,106 @@ for (let i=0;i<gegenstände.length;i++){
 	tagliste.push(gs.name)
 }
 
-var k = function(zustand){ return zustand.includes("bett")};
-var zustand=["bett","hintergrund","roomba","router"]
 
+function bildIndex(tag_name,zustand){
+	var bild_tag_idx=tagliste.indexOf(tag_name);
+	var ggs=gegenstände[bild_tag_idx]
+	var bild_name = ggs.img(zustand);
+	var idx =  ebene_folge.indexOf(bild_name);
+	console.log(tag_name,bild_tag_idx,bild_name,idx)
+	return idx;
+}
+
+function machBildName(zustand){
+	if (zustand.length===0){
+		return "1"
+	}
+	var maps = zustand.map(t=>bildIndex(t,zustand))
+	maps.sort(function(a, b) { return a - b })
+	
+	return maps.join("-");
+}
 
 function machSeiteName(zustand){
 	if (zustand.length===0){
-		return ""
+		return "1"
 	}
-	var hash=""+tagliste.indexOf(zustand[0]);
-	for (var i=0;i<zustand.length;i++){
-		hash+=" "+tagliste.indexOf(zustand[i]);
-	}
-	return hash;
+	var maps = zustand.map( t=> tagliste.indexOf(t).toString(36));
+
+	return hash=maps.join("");
 }
 
 
-var zubesuchen=[ [] ]
-var besucht=[]
-var besucht_strs={}
-var outgoing={}
+const url = new URL(location);
+const zustand_params = url.searchParams.get('zustand') || 'index';
 
-while (zubesuchen.length>0){
-	let zustand = zubesuchen.pop();
-	var source_key=machSeiteName(zustand)
-	outgoing[source_key]=[];
-
-	for (var i=0;i<gegenstände.length;i++){
-		var gegenstand=gegenstände[i];
-		if (zustand.includes(gegenstand.name)){
-			continue;
-		}
-		if (gegenstand.erfordernis(zustand)){
-			var neuerZustand = [gegenstand.name].concat(zustand);
-			neuerZustand.sort();
-			var key = machSeiteName(neuerZustand)
-
-
-			outgoing[source_key].push(key)
-
-			if (besucht_strs[key]!==true){
-				zubesuchen.push(neuerZustand);
-				besucht_strs[key]=true;
-				
-
-
-			} else {
-
-			}
+var zustand=[];
+if (zustand_params==="index"||zustand_params==null||zustand_params===""){
+	zustand=[]
+} else {
+	for (var i=0;i<zustand_params.length;i++){
+		var ti=parseInt(zustand_params[i],36);
+		if (ti>=0){
+			zustand.push(tagliste[ti])
 		}
 	}
-	besucht.push(zustand)
+}
+console.log(zustand)
 
+//generiere abgehende Linken
+var zubesuchen=[]
+var zubesuchen_tags=[]
 
+var source_key=machSeiteName(zustand)
+
+for (var i=0;i<gegenstände.length;i++){
+	var gegenstand=gegenstände[i];
+	if (zustand.includes(gegenstand.name)){
+		continue;
+	}
+	if (gegenstand.erfordernis(zustand)){
+		var neuerZustand = [gegenstand.name].concat(zustand);
+		neuerZustand.sort()
+
+		var key = machSeiteName(neuerZustand)
+
+		zubesuchen.push(neuerZustand);
+		zubesuchen_tags.push(gegenstand.name)
+	}
 }
 
-for (var i=0;i<besucht.length;i++){
-	let zustand=besucht[i];
-	var pagename = machSeiteName(zustand)
-	fs.writeFileSync(`output/${pagename}.html`,outgoing[pagename],'utf8')
-
+function offentlicherName(tag){
+	var idx = tagliste.indexOf(tag);
+	var ggs = gegenstände[idx];
+	return ggs.vollname_en;
 }
 
+bodytxt="<div class='Aligner'><table class='Aligner-item'><tr><td>";
+// bodytxt+=`${machSeiteName(zustand)}<br><br>`
+bodytxt+=`<img src="bild.php?idxs=${machBildName(zustand)}&tagsueber=0&led=0">`
+bodytxt+="</td><td>"
+bodytxt+="<ul>";
+for (var i=0;i<zubesuchen.length;i++){
+	var name = offentlicherName(zubesuchen_tags[i]);
+	bodytxt+=`<li><a href="index.html?zustand=${machSeiteName(zubesuchen[i])}">${name}</a>\n`;
+}
+bodytxt+="</ul>"
+bodytxt+="</td></table></div>"
 
 
-function machSeite(){
-
+window.onload=function(){
+	document.body.innerHTML=bodytxt;
 }
 
-machSeite();
 </script>
 
 </head>
 <body>
-	asdf
+
 </body>
 </html>
+
+/*
+
+
+*/
