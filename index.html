@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8"/>
+
 	<title>Heaven on Earth</title>
 
 <style>
@@ -42,7 +44,11 @@
 		height:100%;
 	}
 	a{
-		color:yellow;
+		color:orange;
+		font-size: 2em;
+	}
+	button{
+
 		font-size: 2em;
 	}
 
@@ -73,7 +79,15 @@
 	padding-left:1em;
 }
 
+
+li::before {
+  content: "• ";
+font-size: 2em;
+  color: orange; 
+}
+
 li {
+  list-style: none;
   /*display: flex;*/
   justify-content: center;
   /* align-self: center;    <---- REMOVE */
@@ -132,6 +146,7 @@ var ebene_folge = [
 
 var tagsüber=true;
 var silhouette=false;
+var vorhaengezu=false;
 
 var gegenstände = [
 
@@ -222,7 +237,7 @@ var gegenstände = [
 		kauftext_en:"Modern TVs are so stylish.  No buttons at all!  Now, just to remember where the remote's hidden itself...",
 		kauftext_de:"Moderne Fernseher sind so chic!  Gar keine Knöpfe mehr.  Aber wo hat die verdammte Fernbedienung sich versteckt?",
 		img:function(zustand){ return "fernseher" },
-		erfordernis:function(zustand){ return zustand.includes("fernsehertisch")}
+		erfordernis:function(zustand){ return zustand.includes("fernsehertisch")&&zustand.includes("router")}
 	},
 
 	{
@@ -252,7 +267,7 @@ var gegenstände = [
 		kauftext_en:"Says in the manual one should be careful of cables/etc. on the floor.",
 		kauftext_de:"Sagt im Handbuch dass man soll vorsichtig mit Stromkabeln auf dem Boden usw sein.",
 		img:function(zustand){ if (zustand.includes("strip2")) {return "roomba_s2"; } else {return "roomba_s0";} },
-		erfordernis:function(zustand){ return zustand.includes("bett") && (zustand.includes("strip2") || (!zustand.includes("rpi") ) ) }
+		erfordernis:function(zustand){ return zustand.includes("router")&&zustand.includes("bett") && (zustand.includes("strip2") || (!zustand.includes("rpi") ) ) }
 	},
 
 	{
@@ -292,7 +307,7 @@ var gegenstände = [
 		kauftext_en:"Now I can combine two of my favourite hobbies: watching TV and piracy.",
 		kauftext_de:"Mit diesem R-Pi kann ich zwei meiner Hobbys zusammenfügen: Fernsehen und Urheberrechtsverletzung.",
 		img:function(zustand){ if (zustand.includes("strip2")) {return "rpi_s2"; } else {return "rpi_s0";} },
-		erfordernis:function(zustand){ return zustand.includes("router")}
+		erfordernis:function(zustand){ return zustand.includes("router") && (zustand.includes("strip2") || (!zustand.includes("roomba") ) )}
 	},
 
 	{
@@ -321,7 +336,13 @@ var gegenstände = [
 		vollname_de:"Schrank",
 		kauftext_en:"I've been in this town long enough now that I'm giving myself the opportunity to start collecting and arranging books again.",
 		kauftext_de:"Ich bin in dieser Stadt so lang geblieben, dass ich mich die Genehmigung geben mögen, Bücher kaufen und anordnen zu können.",
-		img:function(zustand){ return "schrank" },
+		img:function(zustand){ 
+			if (silhouette){
+				return "fenster_schrank" 
+			} else {
+				return "schrank" 				
+			}
+		},
 		erfordernis:function(zustand){ return zustand.includes("bett")}
 	},
 
@@ -332,17 +353,32 @@ var gegenstände = [
 		kauftext_en:"I tire of the outside world intruding on my dreams.",
 		kauftext_de:"Ich bin der Außenwelt müd. Ich will nur in der Dunkelheit schlafen.",
 		img:function(zustand){ 
-			if (tagsüber) {
-				return "vorhaenge";
-			} else { 
-				if (zustand.includes("alexa") ) 
-				{
-					return "vorhaenge_zu_alexa";
+			if (silhouette){
+				if (!vorhaengezu) {
+					return "fenster_vorhaenge";
+				} else { 
+					if (zustand.includes("alexa") ) 
+					{
+						return "fenster_vorhaenge_zu_alexa";
+					} 
+					else {
+						return "fenster_vorhaenge_zu";
+					} 
 				} 
-				else {
-					return "vorhaenge_zu";
+			}
+			else {
+				if (!vorhaengezu) {
+					return "vorhaenge";
+				} else { 
+					if (zustand.includes("alexa") ) 
+					{
+						return "vorhaenge_zu_alexa";
+					} 
+					else {
+						return "vorhaenge_zu";
+					} 
 				} 
-			} 
+			}
 		},
 		erfordernis:function(zustand){ return zustand.includes("bett")}
 	},
@@ -353,7 +389,12 @@ var gegenstände = [
 		vollname_de:"Amazon Echo",
 		kauftext_en:"Alexa, play a lonely song.",
 		kauftext_de:"Alexa, bitte spiel mir was Trauriges.",
-		img:function(zustand){ return "alexa" },
+		img:function(zustand){ 
+			if (silhouette){
+				return "fenster_alexa" 
+			} else {
+				return "alexa" 				
+			} },
 		erfordernis:function(zustand){ return zustand.includes("strip2")}
 	},
 
@@ -409,7 +450,7 @@ var gegenstände = [
 
 	{
 		name:"sterne",
-		vollname_en:"Glow in The Dark Stars and Moon",
+		vollname_en:"Glow in The Dark Stars",
 		vollname_de:"Leuchtende Sterne Set",
 		kauftext_en:`The packing says "Realistic No Dots No Squares Set".  I guess a lot of people have been burned by low-quality glow in the dark stars.  It's nice to see that the producer seems proud of the quality of their glow-in-the-dark stars.`,
 		kauftext_de:`Die Packung sagt: "Realistisch.  Keine Punkte oder Quadrate".  Irgendwie ein gutes Verkaufs	.  Ich bin jedenfalls überzeugt, dass der Producer stolz auf seine Waren ist!`,
@@ -419,16 +460,6 @@ var gegenstände = [
 ]
 
 var tagliste=[]
-
-//zustand:
-//morgen  KAUF
-//morgen GO TO WORK
-//at work COME HOME
-//abend if curtins, close curtains
-//abend2 (optional) go to bed
-//schalfen lights out
-//lightsout sleep
-//if game over, final message?  no.  alles möglichst einfach.
 
 for (let i=0;i<gegenstände.length;i++){
 	let gs=gegenstände[i];
@@ -450,43 +481,73 @@ function machBildName(zustand){
 		return "1"
 	}
 	var maps = zustand.map(t=>bildIndex(t,zustand))
+	if (silhouette){
+		maps.push(ebene_folge.indexOf("fenster"));
+	}
 	maps.sort(function(a, b) { return a - b })
 	
 	return maps.join("-");
 }
 
-function machSeiteName(zustand){
+function machSeiteName(zustand,tod){
 	if (zustand.length===0){
 		return "1"
 	}
 	var maps = zustand.map( t=> tagliste.indexOf(t).toString(36));
 
-	return hash=maps.join("");
+	return hash=tod+maps.join("");
 }
 
 
 const url = new URL(location);
 const zustand_params = url.searchParams.get('zustand') || 'index';
+var listinhalt="";
+var imgurl="bild.php?idxs=1&tagsueber=1&led=0";
 
-var zustand=[];
-if (zustand_params==="index"||zustand_params==null||zustand_params===""){
-	zustand=[]
-} else {
-	for (var i=0;i<zustand_params.length;i++){
-		var ti=parseInt(zustand_params[i],36);
-		if (ti>=0){
-			zustand.push(tagliste[ti])
+
+function darstelleZustand(zustand_params){
+
+	var zustand=[];
+	var tod=0;
+	if (zustand_params==="index"||zustand_params==null||zustand_params===""){
+		zustand=[]
+		tod=0;
+	} else {
+		tod=parseInt(zustand_params[0],36)
+		for (var i=1;i<zustand_params.length;i++){			
+			var ti=parseInt(zustand_params[i],36);
+			if (ti>=0){
+				zustand.push(tagliste[ti])
+			}
 		}
 	}
-}
+
+	console.log(tod)
+
+/*
+
+//zustand:
+//0 morgen 				KAUF 			tagsüber
+//1 morgen 				GO TO WORK 		tagsüber
+//2 at work morning 	WORK 			tagsüber
+//3 at work late  		GO HOME 		
+//4 abend if curtins, 	CLOSE CURTAINS 	 	[conditional on having curtains, otherwise skip]
+//5 abend2 (optional)  	GO TO BED 		curtainszu
+//6 nacht				SLEEP (no option to sleep if you've bought everything)			silhouette curtainszu
+//7 open curtains 		OPEN CURTAINS 	tagsüber curtainszu [conditional on having curtains]
 
 
-function darstelleZustand(zustand){
+*/
+
+
+	tagsüber = tod===0 || tod===1 || tod==7;
+	silhouette = tod===6;
+	vorhaengezu = tod===5 || tod ===6 || tod===7;
+
 	//generiere abgehende Linken
 	var zubesuchen=[]
 	var zubesuchen_tags=[]
 
-	var source_key=machSeiteName(zustand)
 
 	for (var i=0;i<gegenstände.length;i++){
 		var gegenstand=gegenstände[i];
@@ -497,7 +558,6 @@ function darstelleZustand(zustand){
 			var neuerZustand = [gegenstand.name].concat(zustand);
 			neuerZustand.sort()
 
-			var key = machSeiteName(neuerZustand)
 
 			zubesuchen.push(neuerZustand);
 			zubesuchen_tags.push(gegenstand.name)
@@ -510,46 +570,128 @@ function darstelleZustand(zustand){
 		return ggs.vollname_en;
 	}
 
-	bodytxt=`
-	<div class="wrapper">
-	<div class='row'>
-		<img class='column tblpad' src="bild.php?idxs=${machBildName(zustand)}&tagsueber=${tagsüber?1:0}&led=0">
-	    <div class='column rpad'>
-	<ul>
-
-
-	`
-	for (var i=0;i<zubesuchen.length;i++){
-		var name = offentlicherName(zubesuchen_tags[i]);
-		bodytxt+=`
-		<li><a href="index.html?zustand=${machSeiteName(zubesuchen[i])}">${name}</a>
-		`;
+	let imgurl=`bild.php?idxs=${machBildName(zustand,tod,silhouette,vorhaengezu)}&tagsueber=${tagsüber?1:0}&led=${silhouette?1:0}`;
+	if (tod===2){
+		imgurl="work1.png"
+	} else if (tod===3){
+		imgurl="work2.png";
 	}
-	bodytxt+=`
-	</ul>
-	      </div>
-	    </div>
-	`
+
+
+	listinhalt="";
+
+	switch (tod){
+		//0 morgen 				KAUF 			tagsüber
+		case 0:{
+			for (var i=0;i<zubesuchen.length;i++){
+				var name = offentlicherName(zubesuchen_tags[i]);
+				listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zubesuchen[i],tod+1)}');">${name}</a>
+				`
+			}
+			break;
+		}	
+		//1 morgen 				GO TO WORK 		tagsüber
+		case 1:{
+			listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,tod+1)}');">Go to work</a>
+				`
+			break;
+		}
+		//2 at work morning 	WORK 			tagsüber
+		case 2:{
+			listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,tod+1)}');">Work</a>
+				`
+			break;
+		}
+		//3 at work late  		GO HOME 		
+		case 3:{
+			var hascurtains = zustand.includes("vorhaenge")
+			listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,hascurtains?4:5)}');">Go home</a>
+				`
+			break;
+		}
+		//4 abend if curtins, 	CLOSE CURTAINS 	 	[conditional on having curtains, otherwise skip]
+		case 4:{
+			listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,tod+1)}');">Close curtains</a>
+				`
+			break;
+		}
+		//5 abend2 (optional)  	GO TO BED 		curtainszu
+		case 5:{
+			listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,tod+1)}');">Go to bed</a>
+				`
+			break;
+		}
+		//6 nacht				SLEEP (no option to sleep if you've bought everything)			silhouette curtainszu
+		case 6:{
+			if (zustand.length<27){
+				var hascurtains = zustand.includes("vorhaenge")
+				listinhalt+=`
+					<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,hascurtains?7:0)}');">Sleep</a>
+					`
+			}
+			break;
+		}
+		//7 open curtains 		OPEN CURTAINS 	tagsüber curtainszu [conditional on having curtains]
+		case 7:{
+			listinhalt+=`
+				<li><a href="#" onclick="darstelleZustand('${machSeiteName(zustand,0)}');">Open curtains</a>
+				`
+			break;
+		}
+	}
 	if (document.body!=null){
-		document.body.innerHTML=bodytxt;		
+
+		var rechts = document.getElementById('rechts');
+		var links = document.getElementById('links');
+		rechts.innerHTML=listinhalt;
+		links.src=imgurl;				
 	}
 }
 
-darstelleZustand(zustand)
+darstelleZustand(zustand_params)
 
 window.onload=function(){
-	document.body.innerHTML=bodytxt;
+		var rechts = document.getElementById('rechts');
+		var links = document.getElementById('links');
+		rechts.innerHTML=listinhalt;
+		links.src=imgurl;				
 }
+
+
+/*
+
+//zustand:
+//0 morgen 				KAUF 			tagsüber
+//1 morgen 				GO TO WORK 		tagsüber
+//2 at work morning 	WORK 			tagsüber
+//3 at work late  		GO HOME 		
+//4 abend if curtins, 	CLOSE CURTAINS 	 	[conditional on having curtains, otherwise skip]
+//5 abend2 (optional)  	GO TO BED 		curtainszu
+//6 nacht				SLEEP 			silhouette curtainszu
+//7 [potentially end game here if you have everything, otherwise skip]
+//8 open curtains 		OPEN CURTAINS 	tagsüber curtainszu [conditional on having curtains]
+
+
+*/
 
 </script>
 
 </head>
 <body>
-
+	<div class="wrapper">
+		<div class='row'>
+			<img id="links" class='column tblpad' src="bild.php?idxs=1&tagsueber=1&led=0">
+		    <div class='column rpad'>
+				<ul id="rechts">
+				</ul>
+			</div>
+		</div>
+</div>
 </body>
 </html>
-
-/*
-
-
-*/

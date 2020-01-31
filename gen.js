@@ -44,7 +44,7 @@ for (let i=0;i<datein.length;i++){
 	png = PNG.sync.read(data);
 
 
-	if (fn.indexOf("fenster_")===-1){
+	if (fn.indexOf("fenster_")===-1&&d.indexOf("fenster")!==0){
 		console.log(fn)
 		for (var y = 0; y < png.height; y++) {
 	        for (var x = 0; x < png.width; x++) {
