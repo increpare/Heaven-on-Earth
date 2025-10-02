@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<title>Heaven on Earth</title>
 
@@ -9,102 +10,160 @@
 	body{
 		background-color: black;
 		color: white;
-		/*text-align: center;*/
+		margin: 0;
+		padding: 0;
+		font-family: Arial, sans-serif;
+		height: 100vh;
+		overflow: hidden;
 
 	    image-rendering: -moz-crisp-edges;
 	    image-rendering: -webkit-crisp-edges;
 	    image-rendering: pixelated;
 	    image-rendering: crisp-edges;
-	    width:100%;
-	    height:100%;
 	}
-	html, body, div{
-    height:100%;
-    width:100%;
-    padding:0;
-    margin:0;
-}
 
-	div{height:100%;}
-
-	ul{
-		/*list-style-type: none;*/
+	.container {
+		display: flex;
+		height: 100vh;
+		width: 100vw;
 	}
-	img{
-		object-fit: contain;
-		object-position: top right;
-		width: 100%;
-		height: 100%;
-		max-width: 100%;
-		max-height: 100%;
+
+	.image-container {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1em;
 		box-sizing: border-box;
 	}
-	tr{
-		height:100%;
-		width:100%;
+
+	.image-container img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: center;
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
 	}
-	td{
-		width:50%;
-		vertical-align:bottom;
-		height:100%;
+
+	.menu-container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		padding: 2em;
+		box-sizing: border-box;
+		overflow-y: auto;
 	}
-	a{
-		color:orange;
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		margin-bottom: 0.2em;
+		display: flex;
+		align-items: center;
+	}
+
+	a {
+		color: orange;
 		font-size: 2em;
+		text-decoration: none;
+		padding: 0.1em 0;
+		flex: 1;
+		line-height: 1.1;
 	}
-	button{
 
-		font-size: 2em;
+	a:hover {
+		color: #ff8c00;
 	}
 
-.wrapper{
-  background-color: black;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  height: 100%;
-  flex: 1;
-}
+	/* Prevent hover state from sticking on touch devices */
+	@media (hover: none) and (pointer: coarse) {
+		a:hover {
+			color: orange;
+		}
+	}
 
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-}
+	/* Portrait mode: stack vertically */
+	@media (orientation: portrait), (max-aspect-ratio: 1/1) {
+		.container {
+			flex-direction: column;
+		}
+		
+		.image-container {
+			flex: 0 0 50vh;
+			padding: 0.5em;
+			min-height: 0;
+		}
+		
+		.image-container img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center;
+		}
+		
+		.menu-container {
+			flex: 0 0 50vh;
+			padding: 1em;
+			min-height: 0;
+		}
+		
+		li {
+			margin-bottom: 0.5em;
+			width: 100%;
+		}
+		
+		a {
+			font-size: 2em;
+			background-color: black;
+			border-radius: 12px;
+			padding: 0.3em 1em;
+			text-align: center;
+			display: block;
+			width: 100%;
+			box-sizing: border-box;
+			border: 2px solid darkgray;
+			color:darkgray;
+		}
+		
+		a:hover {
+			background-color: darkgray;
+			color: black;
+			border-color: black;
+		}
+		
+		/* Prevent hover state from sticking on touch devices in portrait mode */
+		@media (hover: none) and (pointer: coarse) {
+			a:hover {
+				background-color: black;
+				color: darkgray;
+				border-color: darkgray;
+			}
+		}
+		
+		li::before {
+			display: none;
+		}
+	}
 
-.rpad{
-	padding-right:4em;
-}
-
-.tblpad{
-	padding-top:1em;
-	padding-bottom:1em;
-	padding-left:1em;
-}
-
+	/* Mobile devices - increase font size further */
+	@media (max-width: 768px) {
+		a {
+			font-size: 2em;
+		}
+	}
 
 li::before {
   content: "• ";
-font-size: 2em;
+  font-size: 2em;
   color: orange; 
-}
-
-li {
-  list-style: none;
-  /*display: flex;*/
-  justify-content: center;
-  /* align-self: center;    <---- REMOVE */
-  /*align-items: center;   /* <---- NEW    */*/
-  /*background: silver;*/
-  width: 100%;
-  padding-bottom:1em;
 }
 
 </style>
@@ -694,14 +753,14 @@ window.onload=function(){
 
 </head>
 <body>
-	<div class="wrapper">
-		<div class='row'>
-			<img id="links" class='column tblpad' src="bild.php?idxs=1&tagsueber=1&led=0">
-		    <div class='column rpad'>
-				<ul id="rechts">
-				</ul>
-			</div>
+	<div class="container">
+		<div class="image-container">
+			<img id="links" src="bild.php?idxs=1&tagsueber=1&led=0">
 		</div>
-</div>
+		<div class="menu-container">
+			<ul id="rechts">
+			</ul>
+		</div>
+	</div>
 </body>
 </html>
